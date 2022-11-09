@@ -55,46 +55,46 @@ import './section_text_model.dart';
 
 abstract class BasicSeekbar extends StatefulWidget {
   ///最小值
-  final double min;
+  final double? min;
 
   ///最大值
-  final double max;
+  final double? max;
 
   ///进度值
-  final double value;
+  final double? value;
 
   /// 高度
-  final double progresseight;
+  final double? progresseight;
 
   /// 总共分几份
-  final int sectionCount;
+  final int? sectionCount;
 
   ///间隔圆圈的颜色
-  final Color sectionColor;
+  final Color? sectionColor;
 
   ///间隔圆圈未选中的颜色
-  final Color sectionUnSelecteColor;
+  final Color? sectionUnSelecteColor;
 
   ///间隔圆圈的半径
-  final double sectionRadius;
+  final double? sectionRadius;
 
   ///显示间隔刻度值与否，默认是不显示
-  final bool showSectionText;
+  final bool? showSectionText;
 
   /// 刻度值的数组
-  final List<SectionTextModel> sectionTexts;
+  final List<SectionTextModel>? sectionTexts;
 
   ///刻度值的字体大小
-  final double sectionTextSize;
+  final double? sectionTextSize;
 
   /// 是否在拖拽结束显示值
-  final bool afterDragShowSectionText;
+  final bool? afterDragShowSectionText;
 
   ///刻度值的字体颜色
-  final Color sectionTextColor;
+  final Color? sectionTextColor;
 
   ///刻度值的字体颜色
-  final Color sectionSelectTextColor;
+  final Color? sectionSelectTextColor;
 
   ///刻度值的小数点的位数，默认是0位
   final int sectionDecimal;
@@ -103,32 +103,32 @@ abstract class BasicSeekbar extends StatefulWidget {
   final double sectionTextMarginTop;
 
   /// 指示器的半径
-  final double indicatorRadius;
+  final double? indicatorRadius;
 
   ///指示器的颜色
-  final Color indicatorColor;
+  final Color? indicatorColor;
 
   ///进度条背景的颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 进度条当前进度的颜色
-  final Color progressColor;
+  final Color? progressColor;
 
   ///这个是给盲人用的，屏幕阅读器的要读出来的标签
-  final String semanticsLabel;
+  final String? semanticsLabel;
 
   ///这个是给盲人用的，屏幕阅读器的要读出的进度条的值
-  final String semanticsValue;
+  final String? semanticsValue;
 
   ///进度改变的回调
-  final ValueChanged<ProgressValue> onValueChanged;
+  final ValueChanged<ProgressValue>? onValueChanged;
   // final void Function(double) onValueChanged;
 
   ///进度条是否是圆角的，还是方形的，默认是圆角的
   final bool isRound;
 
   const BasicSeekbar(
-      {Key key,
+      {Key? key,
       this.min,
       this.max,
       this.value,
@@ -143,8 +143,8 @@ abstract class BasicSeekbar extends StatefulWidget {
       this.afterDragShowSectionText,
       this.sectionTextColor,
       this.sectionSelectTextColor,
-      this.sectionDecimal,
-      this.sectionTextMarginTop,
+      this.sectionDecimal = 0,
+      this.sectionTextMarginTop = 1,
       this.backgroundColor,
       this.progressColor,
       this.semanticsLabel,
@@ -152,7 +152,7 @@ abstract class BasicSeekbar extends StatefulWidget {
       this.indicatorRadius,
       this.indicatorColor,
       this.onValueChanged,
-      this.isRound})
+      this.isRound = false})
       : super(key: key);
 
   Color _getBackgroundColor(BuildContext context) =>
@@ -161,12 +161,12 @@ abstract class BasicSeekbar extends StatefulWidget {
       progressColor ?? Theme.of(context).accentColor;
 
   Widget _buildSemanticsWrapper({
-    @required BuildContext context,
-    @required Widget child,
+    required BuildContext context,
+    required Widget child,
   }) {
-    String expandedSemanticsValue = semanticsValue;
+    String? expandedSemanticsValue = semanticsValue;
     if (value != null) {
-      expandedSemanticsValue ??= '${(value * 100).round()}%';
+      expandedSemanticsValue ??= '${(value! * 100).round()}%';
     }
     return Semantics(
       label: semanticsLabel,
@@ -189,31 +189,31 @@ class _SeekBarPainter extends CustomPainter {
   final Color backgroundColor;
 
   ///进度条的颜色
-  final Color progressColor;
+  final Color? progressColor;
 
   ///进度值
-  final double value;
+  final double? value;
 
   ///最大值
-  final double min;
+  final double? min;
 
   ///最小值
-  final double max;
+  final double? max;
 
   ///指示器的半径，进度条右侧的原点
   double indicatorRadius;
 
   ///最外层的圆角
-  double radius;
+  double? radius;
 
   ///间隔数量
   int sectionCount;
 
   ///间隔圆圈的颜色
-  Color sectionColor;
+  Color? sectionColor;
 
   ///间隔圆圈未选中的颜色
-  final Color sectionUnSelecteColor;
+  final Color? sectionUnSelecteColor;
 
   ///间隔圆圈的半径
   double sectionRadius;
@@ -222,17 +222,17 @@ class _SeekBarPainter extends CustomPainter {
   final bool showSectionText;
 
   /// 刻度值的数组
-  final List<SectionTextModel> sectionTexts;
+  final List<SectionTextModel>? sectionTexts;
 
   ///刻度值的字体大小
-  final double sectionTextSize;
-  final bool afterDragShowSectionText;
+  final double? sectionTextSize;
+  final bool? afterDragShowSectionText;
 
   ///刻度值的字体颜色
-  final Color sectionTextColor;
+  final Color? sectionTextColor;
 
   ///刻度值的字体颜色
-  final Color sectionSelectTextColor;
+  final Color? sectionSelectTextColor;
 
   ///刻度值的小数点的位数，默认是0位
   final int sectionDecimal;
@@ -244,56 +244,56 @@ class _SeekBarPainter extends CustomPainter {
   double progresseight;
 
   ///指示器的颜色
-  Color indicatorColor;
+  Color? indicatorColor;
 
   ///气泡隐藏与否，默认是true,隐藏
-  bool hideBubble;
+  bool? hideBubble;
 
   ///是否是一直显示气泡，默认是false，
-  bool alwaysShowBubble;
+  bool? alwaysShowBubble;
 
   ///气泡的半径
-  double bubbleRadius;
+  double? bubbleRadius;
 
   ///气泡的总高度
-  double bubbleHeight;
+  double? bubbleHeight;
 
   /// 气泡背景颜色
-  Color bubbleColor;
+  Color? bubbleColor;
 
   /// 气泡中文字的颜色
-  Color bubbleTextColor;
+  Color? bubbleTextColor;
 
   /// 气泡中文字的大小
-  double bubbleTextSize;
+  double? bubbleTextSize;
 
   /// 气泡距离底部的高度
-  double bubbleMargin;
+  double? bubbleMargin;
 
   /// 气泡在进度条的中间显示，而不是在进度条的上方展示，默认是false，在上方显示
-  bool bubbleInCenter;
+  bool? bubbleInCenter;
   _SeekBarPainter(
-      {this.backgroundColor,
+      {this.backgroundColor = const Color(0xFFFFFFFF),
       this.progressColor,
       this.value,
       this.min,
       this.max,
-      this.indicatorRadius,
+      this.indicatorRadius = 1,
       this.indicatorColor,
       this.radius,
-      this.sectionCount,
+      this.sectionCount = 1,
       this.sectionColor,
       this.sectionUnSelecteColor,
-      this.sectionRadius,
-      this.showSectionText,
+      this.sectionRadius = 0,
+      this.showSectionText = false,
       this.sectionTexts,
       this.sectionTextSize,
       this.afterDragShowSectionText,
       this.sectionTextColor,
       this.sectionSelectTextColor,
-      this.sectionDecimal,
-      this.sectionTextMarginTop,
-      this.progresseight,
+      this.sectionDecimal = 0,
+      this.sectionTextMarginTop = 1,
+      this.progresseight = 1,
       this.hideBubble,
       this.alwaysShowBubble,
       this.bubbleRadius,
@@ -324,7 +324,7 @@ class _SeekBarPainter extends CustomPainter {
     //   startY = indicatorRadius - progresseight / 2;
     //   endY = indicatorRadius + progresseight / 2;
     // }
-    if (r == null || r == 0.0) {
+    if (r == 0.0) {
       path
         ..moveTo(0.0, startY)
         ..lineTo(x, startY)
@@ -359,32 +359,32 @@ class _SeekBarPainter extends CustomPainter {
       } else {
         yPosition += indicatorRadius + size.height / 2;
       }
-      double e = (max - min) / sectionCount;
+      double e = (max! - min!) / sectionCount;
 
       for (var i = 0; i < sectionCount + 1; i++) {
-        String point = (e * i + min).toStringAsFixed(sectionDecimal);
+        String point = (e * i + min!).toStringAsFixed(sectionDecimal);
 
-        if (sectionTexts.length > 0) {
-          Iterable<SectionTextModel> match = sectionTexts.where((item) {
+        if (sectionTexts!.length > 0) {
+          Iterable<SectionTextModel> match = sectionTexts!.where((item) {
             return item.position == i;
           });
 
           if (match.length > 0) {
             SectionTextModel matchModel = match.first;
             point = matchModel.text;
-          } else if (i == value * sectionCount &&
+          } else if (i == value! * sectionCount &&
               afterDragShowSectionText != null &&
-              afterDragShowSectionText) {
+              afterDragShowSectionText!) {
           } else {
             point = '';
           }
         }
 
-        Size textSize = getTextWidth(text: point, fontsize: sectionTextSize);
-        Color textColor = sectionTextColor;
+        Size textSize = getTextWidth(text: point, fontsize: sectionTextSize!);
+        Color textColor = sectionTextColor!;
         if (sectionSelectTextColor != Colors.transparent &&
-            i == value * sectionCount) {
-          textColor = sectionSelectTextColor;
+            i == value! * sectionCount) {
+          textColor = sectionSelectTextColor!;
         }
         //为了计算文字和size的偏差
         double th = 0;
@@ -394,7 +394,7 @@ class _SeekBarPainter extends CustomPainter {
         canvas.drawParagraph(
             getParagraph(
                 text: point,
-                fontsize: sectionTextSize,
+                fontsize: sectionTextSize!,
                 textColor: textColor,
                 textSize: textSize),
             Offset(i * size.width / sectionCount - textSize.width / 2,
@@ -403,28 +403,28 @@ class _SeekBarPainter extends CustomPainter {
     }
 
     canvas.drawPath(
-        drawPath(progresseight, size.width, size.height, radius), paint); //画背景
+        drawPath(progresseight, size.width, size.height, radius!), paint); //画背景
     //下面是画矩形
     // Size newSize = new Size(size.width - indicatorRadius, size.height);
     // canvas.drawRect(Offset.zero & newSize, paint);
 
-    paint.color = progressColor;
+    paint.color = progressColor!;
 
     // 画进度条
     void drawBar(double x, double progress) {
       if (x <= 0.0) return;
       //如果是分段，而且有自定义的刻度值
-      if (sectionCount > 1 && sectionTexts.length > 1) {
-        sectionTexts.forEach((item) {
+      if (sectionCount > 1 && sectionTexts!.length > 1) {
+        sectionTexts!.forEach((item) {
           if (progress * sectionCount >= item.position) {
             if (item.progressColor != null) {
-              paint.color = indicatorColor = sectionColor = item.progressColor;
+              paint.color = indicatorColor = sectionColor = item.progressColor!;
             }
           }
         });
       }
 
-      canvas.drawPath(drawPath(progresseight, x, size.height, radius), paint);
+      canvas.drawPath(drawPath(progresseight, x, size.height, radius!), paint);
       // canvas.drawRect(Offset(x, 0.0) & Size(width, size.height), paint);
     }
 
@@ -433,7 +433,7 @@ class _SeekBarPainter extends CustomPainter {
       if (sectionCount <= 1) return;
       for (var i = 0; i < sectionCount + 1; i++) {
         paint.color =
-            i > value * sectionCount ? sectionUnSelecteColor : sectionColor;
+            i > value! * sectionCount ? sectionUnSelecteColor! : sectionColor!;
 
         canvas.drawCircle(
             Offset(i * size.width / sectionCount, size.height / 2),
@@ -450,55 +450,55 @@ class _SeekBarPainter extends CustomPainter {
       }
       Paint indicatorPaint = new Paint()
         ..style = PaintingStyle.fill
-        ..color = indicatorColor;
-      canvas.drawCircle(Offset(value * size.width, size.height / 2),
+        ..color = indicatorColor!;
+      canvas.drawCircle(Offset(value! * size.width, size.height / 2),
           indicatorRadius, indicatorPaint);
     }
 
     //画顶部的指示器
     void drawTopBubble() {
-      if (hideBubble || !alwaysShowBubble) return;
-      paint.color = bubbleColor;
+      if (hideBubble! || !alwaysShowBubble!) return;
+      paint.color = bubbleColor!;
       double bubbleInCenterY = 0.0;
       double newBubbleHeight;
-      if (bubbleInCenter) {
+      if (bubbleInCenter!) {
         bubbleMargin = 0.0;
-        bubbleInCenterY = bubbleHeight - bubbleRadius;
-        newBubbleHeight = bubbleHeight;
+        bubbleInCenterY = bubbleHeight! - bubbleRadius!;
+        newBubbleHeight = bubbleHeight!;
       } else {
-        bubbleInCenterY = indicatorRadius - size.height / 2 + bubbleMargin;
-        newBubbleHeight = bubbleHeight + bubbleInCenterY;
+        bubbleInCenterY = indicatorRadius - size.height / 2 + bubbleMargin!;
+        newBubbleHeight = bubbleHeight! + bubbleInCenterY;
       }
       //计算bubble的坐标值，画出bubble，
-      double x = bubbleRadius /
-          (newBubbleHeight - bubbleRadius) *
-          math.sqrt((math.pow(newBubbleHeight - bubbleRadius, 2) -
-              math.pow(bubbleRadius, 2)));
-      double y = math.sqrt(math.pow(bubbleRadius, 2) - x * x);
+      double x = bubbleRadius! /
+          (newBubbleHeight - bubbleRadius!) *
+          math.sqrt((math.pow(newBubbleHeight - bubbleRadius!, 2) -
+              math.pow(bubbleRadius!, 2)));
+      double y = math.sqrt(math.pow(bubbleRadius!, 2) - x * x);
       Path bubblePath = new Path()
-        ..moveTo(value * size.width,
-            bubbleInCenter ? bubbleInCenterY : -bubbleInCenterY)
+        ..moveTo(value! * size.width,
+            bubbleInCenter! ? bubbleInCenterY : -bubbleInCenterY)
         ..lineTo(
-            value * size.width + x,
-            bubbleInCenter
-                ? -newBubbleHeight + bubbleRadius + y + bubbleInCenterY
-                : -newBubbleHeight + bubbleRadius + y)
+            value! * size.width + x,
+            bubbleInCenter!
+                ? -newBubbleHeight + bubbleRadius! + y + bubbleInCenterY
+                : -newBubbleHeight + bubbleRadius! + y)
         ..arcToPoint(
             Offset(
-                value * size.width - x,
-                bubbleInCenter
-                    ? -newBubbleHeight + bubbleRadius + y + bubbleInCenterY
-                    : -newBubbleHeight + bubbleRadius + y),
-            radius: Radius.circular(bubbleRadius),
+                value! * size.width - x,
+                bubbleInCenter!
+                    ? -newBubbleHeight + bubbleRadius! + y + bubbleInCenterY
+                    : -newBubbleHeight + bubbleRadius! + y),
+            radius: Radius.circular(bubbleRadius!),
             clockwise: false,
             largeArc: true)
         ..close();
       canvas.drawPath(bubblePath, paint);
 
-      double realValue = (max - min) * value + min;
+      double realValue = (max! - min!) * value! + min!;
       int rv = realValue.ceil();
       String text = '$rv';
-      double fontsize = bubbleTextSize;
+      double fontsize = bubbleTextSize!;
 
       //此���主要是拿到text的宽高，然后给个约束，同时把text准确的放到某个位置上
       Size textSize = getTextWidth(text: text, fontsize: fontsize);
@@ -507,21 +507,21 @@ class _SeekBarPainter extends CustomPainter {
           getParagraph(
               text: text,
               fontsize: fontsize,
-              textColor: bubbleTextColor,
+              textColor: bubbleTextColor!,
               textSize: textSize),
           Offset(
-              value * size.width - textSize.width / 2,
-              bubbleInCenter
+              value! * size.width - textSize.width / 2,
+              bubbleInCenter!
                   ? -newBubbleHeight +
-                      bubbleRadius -
+                      bubbleRadius! -
                       textSize.height / 2 +
                       bubbleInCenterY
-                  : -newBubbleHeight + bubbleRadius - textSize.height / 2));
+                  : -newBubbleHeight + bubbleRadius! - textSize.height / 2));
     }
 
     drawSectionText(); // draw section text 画刻度值
 
-    drawBar(value.clamp(0.0, 1.0) * size.width, value); //画进度
+    drawBar(value!.clamp(0.0, 1.0) * size.width, value!); //画进度
     drawInterval(); //画间隔
 
     drawIndicator(); //draw indicator
@@ -537,19 +537,19 @@ class _SeekBarPainter extends CustomPainter {
 @immutable
 class SeekBar extends BasicSeekbar {
   ///显示气泡 ,默认是隐藏的，true
-  bool hideBubble;
+  bool? hideBubble;
 
   ///是否是一直显示气泡，默认是false，
-  bool alwaysShowBubble;
+  bool? alwaysShowBubble;
 
   ///气泡半径
-  double bubbleRadius;
+  double? bubbleRadius;
 
   ///气泡总高度，包含气泡半径
-  double bubbleHeight;
+  double? bubbleHeight;
 
   /// 气泡背景颜色
-  Color bubbleColor;
+  Color? bubbleColor;
 
   /// 气泡中文字的颜色
   Color bubbleTextColor;
@@ -564,38 +564,38 @@ class SeekBar extends BasicSeekbar {
   /// 是否可以触摸响应触摸事件
   bool isCanTouch;
   SeekBar({
-    Key key,
-    ValueChanged<ProgressValue> onValueChanged,
+    Key? key,
+    ValueChanged<ProgressValue>? onValueChanged,
     double min = 0.0,
     double max = 100.0,
-    double progresseight,
+    double? progresseight,
     double value = 0.0,
-    Color backgroundColor,
-    Color progressColor,
-    String semanticsLabel,
-    String semanticsValue,
-    double indicatorRadius,
-    Color indicatorColor,
-    int sectionCount,
-    Color sectionColor,
+    Color backgroundColor = const Color(0xFFFFFFFF),
+    Color? progressColor,
+    String? semanticsLabel,
+    String? semanticsValue,
+    double? indicatorRadius,
+    Color? indicatorColor,
+    int? sectionCount,
+    Color? sectionColor,
 
     ///间隔圆圈未选中的颜色
-    final Color sectionUnSelecteColor,
-    double sectionRadius,
-    bool showSectionText,
+    final Color? sectionUnSelecteColor,
+    double? sectionRadius,
+    bool? showSectionText,
 
     /// 刻度值的数组
-    final List<SectionTextModel> sectionTexts,
+    final List<SectionTextModel>? sectionTexts,
 
     ///刻度值的字体大小
     final double sectionTextSize = 14.0,
-    bool afterDragShowSectionText,
+    bool? afterDragShowSectionText,
 
     ///刻度值的字体颜色
-    final Color sectionTextColor,
+    final Color? sectionTextColor,
 
     ///刻度值的字体颜色
-    final Color sectionSelectTextColor,
+    final Color? sectionSelectTextColor,
 
     ///刻度值的小数点的位数，默认是0位
     final int sectionDecimal = 0,
@@ -603,8 +603,8 @@ class SeekBar extends BasicSeekbar {
     ///刻度值距离进度条的间距
     final double sectionTextMarginTop = 4.0,
     bool isRound = true,
-    bool hideBubble,
-    double bubbleRadius,
+    bool? hideBubble,
+    double? bubbleRadius,
     this.bubbleHeight,
     this.bubbleColor,
     this.bubbleTextColor = Colors.white,
@@ -649,53 +649,52 @@ class SeekBar extends BasicSeekbar {
 
 class _SeekBarState extends State<SeekBar> {
   ///进度值
-  double _value;
-  bool _afterDragShowSectionText;
+  late double _value;
+  late bool _afterDragShowSectionText;
 
   ///高度
-  double progresseight;
+  late double progresseight;
 
   ///��高度
-  double totalHeight;
+  late double totalHeight;
 
   ///中间的指示器的圆角
-  double indicatorRadius;
+  late double indicatorRadius;
 
   ///左右两侧的圆角
-  bool isRound;
+  // bool isRound;
 
   ///间�����
-  int sectionCount;
+  late int sectionCount;
 
   ///间隔圆圈的颜色
-  Color sectionColor;
+  Color? sectionColor;
 
   ///间隔圆圈未选中的颜色
-  Color sectionUnSelecteColor;
+  Color? sectionUnSelecteColor;
 
   ///间隔圆圈的半径
-  double sectionRadius;
+  late double sectionRadius;
 
   ///气泡的总高度
-  double bubbleHeight;
-  bool _alwaysShowBubble;
+  late double bubbleHeight;
+  late bool _alwaysShowBubble;
 
-  double length;
-  double e;
-  double start;
-  double end;
+  late double length;
+  double e = 1;
+  double start = 0;
+  double end = 0;
   Offset touchPoint = Offset.zero;
-  ProgressValue v;
 
   @override
   void initState() {
     super.initState();
-    _value = (widget.value - widget.min) / (widget.max - widget.min);
+    _value = (widget.value! - widget.min!) / (widget.max! - widget.min!);
     progresseight = widget.progresseight ?? 5.0;
     indicatorRadius = widget.indicatorRadius ?? progresseight + 2;
     sectionCount = widget.sectionCount ?? 1;
     sectionRadius = widget.sectionRadius ?? 0.0;
-    bubbleHeight = widget.bubbleHeight ?? widget.bubbleRadius * 3;
+    bubbleHeight = widget.bubbleHeight ?? widget.bubbleRadius! * 3;
     _alwaysShowBubble = widget.alwaysShowBubble ?? false;
     _afterDragShowSectionText = false;
     if (sectionCount > 1) {
@@ -709,7 +708,7 @@ class _SeekBarState extends State<SeekBar> {
     } else {
       totalHeight = progresseight;
     }
-    length = (widget.max - widget.min); //总���小
+    length = (widget.max! - widget.min!); //总���小
   }
 
   Widget _buildSeekBar(
@@ -769,13 +768,16 @@ class _SeekBarState extends State<SeekBar> {
 
   // Updates height and value when user taps on the SeekBar.
   void _onTapUp(TapUpDetails tapDetails) {
-    RenderBox renderBox = context.findRenderObject();
+    final renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null) {
+      return;
+    }
     setState(() {
       touchPoint = new Offset(
           renderBox.globalToLocal(tapDetails.globalPosition).dx, 0.0);
-      _value = touchPoint.dx / context.size.width;
+      _value = touchPoint.dx / context.size!.width;
       _setValue();
-      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble
+      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble!
           ? false
           : true) {
         _alwaysShowBubble = false;
@@ -787,25 +789,28 @@ class _SeekBarState extends State<SeekBar> {
   }
 
   void _onPanDown(DragDownDetails details) {
-    RenderBox box = context.findRenderObject();
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null) {
+      return;
+    }
     touchPoint = box.globalToLocal(details.globalPosition);
     //防止绘画越界
     if (touchPoint.dx <= 0) {
       touchPoint = new Offset(0, 0.0);
     }
-    if (touchPoint.dx >= context.size.width) {
-      touchPoint = new Offset(context.size.width, 0);
+    if (touchPoint.dx >= context.size!.width) {
+      touchPoint = new Offset(context.size!.width, 0);
     }
     if (touchPoint.dy <= 0) {
       touchPoint = new Offset(touchPoint.dx, 0.0);
     }
-    if (touchPoint.dy >= context.size.height) {
-      touchPoint = new Offset(touchPoint.dx, context.size.height);
+    if (touchPoint.dy >= context.size!.height) {
+      touchPoint = new Offset(touchPoint.dx, context.size!.height);
     }
     setState(() {
-      _value = touchPoint.dx / context.size.width;
+      _value = touchPoint.dx / context.size!.width;
       _setValue();
-      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble
+      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble!
           ? false
           : true) {
         this._alwaysShowBubble = true;
@@ -818,23 +823,26 @@ class _SeekBarState extends State<SeekBar> {
 
   // Updates height and value when user drags the SeekBar.
   void _onPanUpdate(DragUpdateDetails dragDetails) {
-    RenderBox box = context.findRenderObject();
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null) {
+      return;
+    }
     touchPoint = box.globalToLocal(dragDetails.globalPosition);
     //防止绘画越界
     if (touchPoint.dx <= 0) {
       touchPoint = new Offset(0, 0.0);
     }
-    if (touchPoint.dx >= context.size.width) {
-      touchPoint = new Offset(context.size.width, 0);
+    if (touchPoint.dx >= context.size!.width) {
+      touchPoint = new Offset(context.size!.width, 0);
     }
     if (touchPoint.dy <= 0) {
       touchPoint = new Offset(touchPoint.dx, 0.0);
     }
-    if (touchPoint.dy >= context.size.height) {
-      touchPoint = new Offset(touchPoint.dx, context.size.height);
+    if (touchPoint.dy >= context.size!.height) {
+      touchPoint = new Offset(touchPoint.dx, context.size!.height);
     }
     setState(() {
-      _value = touchPoint.dx / context.size.width;
+      _value = touchPoint.dx / context.size!.width;
 
       _setValue();
     });
@@ -842,7 +850,7 @@ class _SeekBarState extends State<SeekBar> {
 
   void _onPanEnd(DragEndDetails dragDetails) {
     setState(() {
-      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble
+      if (widget.alwaysShowBubble != null && widget.alwaysShowBubble!
           ? false
           : true) {
         this._alwaysShowBubble = false;
@@ -874,11 +882,11 @@ class _SeekBarState extends State<SeekBar> {
         _value = start;
       }
     }
-    double realValue = length * _value + widget.min; //真实的值
+    double realValue = length * _value! + widget.min!; //真实的值
 
     if (widget.onValueChanged != null) {
-      ProgressValue v = ProgressValue(progress: _value, value: realValue);
-      widget.onValueChanged(v);
+      ProgressValue v = ProgressValue(progress: _value!, value: realValue);
+      widget.onValueChanged?.call(v);
     }
   }
 
@@ -886,21 +894,21 @@ class _SeekBarState extends State<SeekBar> {
   void didUpdateWidget(SeekBar oldWidget) {
     super.didUpdateWidget(oldWidget);
     setState(() {
-      _value = (widget.value - widget.min) / (widget.max - widget.min);
+      _value = (widget.value! - widget.min!) / (widget.max! - widget.min!);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isCanTouch) {
+    if (widget.isCanTouch!) {
       return GestureDetector(
           onPanDown: _onPanDown,
           onPanUpdate: _onPanUpdate,
           onPanEnd: _onPanEnd,
           onTapUp: _onTapUp,
-          child: _buildSeekBar(context, _value, widget.min, widget.max));
+          child: _buildSeekBar(context, _value, widget.min!, widget.max!));
     } else {
-      return _buildSeekBar(context, _value, widget.min, widget.max);
+      return _buildSeekBar(context, _value, widget.min!, widget.max!);
     }
   }
 }

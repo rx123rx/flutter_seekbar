@@ -54,7 +54,7 @@ class SectionTextModel {
   final String text;
 
   /// 进度条的这个值之前的颜色
-  final Color progressColor;
+  final Color? progressColor;
 
   const SectionTextModel(
       {this.position = -1,
